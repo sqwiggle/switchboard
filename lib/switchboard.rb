@@ -1,8 +1,9 @@
-require "/switchboard/version"
-require "/switchboard/router"
-require "/switchboard/route"
-require "/switchboard/event"
-require "/switchboard/adapters/pusher"
+require "singleton"
+require "switchboard/version"
+require "switchboard/router"
+require "switchboard/route"
+require "switchboard/event"
+require "switchboard/adapters/pusher"
 
 module Switchboard
 

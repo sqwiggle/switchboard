@@ -1,7 +1,8 @@
 # Switchboard
 
-This is an internal library used at Sqwiggle for notifying external logics of internal events.
-It allows us to define groups of behaviours in an abstracted location and keep data models small.
+This is an internal library used at Sqwiggle for notifying external services (think: Pusher, PubNub, Stripe or simple xmpp or http requests) of internal events.
+It allows us to define groups of behaviours in an abstracted location and keep data models small. (read as avoid *after_save*)
+
 
 At the moment it is entirely focussed on our use case, we open sourced it because there was simple no reason to keep it private, if you find it useful or want to add *Adapters* for your use case or service, that would be swell!
 
@@ -9,36 +10,36 @@ At the moment it is entirely focussed on our use case, we open sourced it becaus
 
 Add this line to your application's Gemfile:
 
-    gem 'sqwiggle-switchboard'
+    gem 'sqwiggle-switchboard', git:git@github.com:sqwiggle/switchboard.git
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sqwiggle-switchboard
-
 ## Usage
 
+Events are *routed* to a processor which returns events that are then fired. 
+
+The routing is defined in an initializer (config/initializers/switchboard.rb)
+
 ```Ruby
+
 Switchboard.config do |config|
 
   config.adapter = Switchboard::Adapters::Pusher
 
   config.route 'message' do |data|
-    serializer = Object.const_get(data.class.to_s + 'Serializer')
     [
       Switchboard::Event.new(
-        key:'stream-update',
-        channel_id:data.room_id, 
+        key:'message',
+        channel_id:'channel', 
         socket_id:data.socket_id, 
-        data:serializer.new(data).as_json
+        data:data.as_json
       ), Switchboard::Event.new(
-        key:'message', 
-        channel_id:data.room_id, 
+        key:'chat_update', 
+        channel_id:data.channel_id, 
         socket_id:data.socket_id, 
-        data:serializer.new(data).as_json
+        data:data.as_json
       )
     ]
   end
@@ -46,8 +47,8 @@ Switchboard.config do |config|
   config.route 'user-updated' do |data|
     Switchboard::Event.new(
       key:'user-updated', 
-      channel_id:data.room.channel_name, 
-      data:{:user => UserSerializer.new(data).as_json}
+      channel_id:data.channel_name, 
+      data:data.as_json
     )
   end
   end

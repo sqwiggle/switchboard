@@ -1,6 +1,6 @@
 # Switchboard
 
-This is an internal library used at Sqwiggle for notifying external logics of internal events.
+This is an internal library used at Sqwiggle for notifying external services (think: Pusher, PubNub, Stripe or simple xmpp or http requests) of internal events.
 It allows us to define groups of behaviours in an abstracted location and keep data models small. (read as avoid *after_save*)
 
 

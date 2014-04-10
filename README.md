@@ -1,7 +1,8 @@
 # Switchboard
 
 This is an internal library used at Sqwiggle for notifying external logics of internal events.
-It allows us to define groups of behaviours in an abstracted location and keep data models small.
+It allows us to define groups of behaviours in an abstracted location and keep data models small. (read as avoid *after_save*)
+
 
 At the moment it is entirely focussed on our use case, we open sourced it because there was simple no reason to keep it private, if you find it useful or want to add *Adapters* for your use case or service, that would be swell!
 

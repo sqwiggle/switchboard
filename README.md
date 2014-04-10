@@ -1,6 +1,9 @@
-# Sqwiggle::Switchboard
+# Switchboard
 
-TODO: Write a gem description
+This is an internal library used at Sqwiggle for notifying external logics of internal events.
+It allows us to define groups of behaviours in an abstracted location and keep data models small.
+
+At the moment it is entirely focussed on our use case, we open sourced it because there was simple no reason to keep it private, if you find it useful or want to add *Adapters* for your use case or service, that would be swell!
 
 ## Installation
 
@@ -18,7 +21,37 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```Ruby
+Switchboard.config do |config|
+
+  config.adapter = Switchboard::Adapters::Pusher
+
+  config.route 'message' do |data|
+    serializer = Object.const_get(data.class.to_s + 'Serializer')
+    [
+      Switchboard::Event.new(
+        key:'stream-update',
+        channel_id:data.room_id, 
+        socket_id:data.socket_id, 
+        data:serializer.new(data).as_json
+      ), Switchboard::Event.new(
+        key:'message', 
+        channel_id:data.room_id, 
+        socket_id:data.socket_id, 
+        data:serializer.new(data).as_json
+      )
+    ]
+  end
+
+  config.route 'user-updated' do |data|
+    Switchboard::Event.new(
+      key:'user-updated', 
+      channel_id:data.room.channel_name, 
+      data:{:user => UserSerializer.new(data).as_json}
+    )
+  end
+  end
+  ```
 
 ## Contributing
 

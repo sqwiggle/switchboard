@@ -46,8 +46,8 @@ Switchboard.config do |config|
   config.route 'user-updated' do |data|
     Switchboard::Event.new(
       key:'user-updated', 
-      channel_id:data.room.channel_name, 
-      data:{:user => UserSerializer.new(data).as_json}
+      channel_id:data.channel_name, 
+      data:data.as_json
     )
   end
   end

@@ -9,36 +9,36 @@ At the moment it is entirely focussed on our use case, we open sourced it becaus
 
 Add this line to your application's Gemfile:
 
-    gem 'sqwiggle-switchboard'
+    gem 'sqwiggle-switchboard', git:git@github.com:sqwiggle/switchboard.git
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sqwiggle-switchboard
-
 ## Usage
 
+Events are *routed* to a processor which returns events that are then fired. 
+
+The routing is defined in an initializer (config/initializers/switchboard.rb)
+
 ```Ruby
+
 Switchboard.config do |config|
 
   config.adapter = Switchboard::Adapters::Pusher
 
   config.route 'message' do |data|
-    serializer = Object.const_get(data.class.to_s + 'Serializer')
     [
       Switchboard::Event.new(
-        key:'stream-update',
-        channel_id:data.room_id, 
+        key:'message',
+        channel_id:'channel', 
         socket_id:data.socket_id, 
-        data:serializer.new(data).as_json
+        data:data.as_json
       ), Switchboard::Event.new(
-        key:'message', 
-        channel_id:data.room_id, 
+        key:'chat_update', 
+        channel_id:data.channel_id, 
         socket_id:data.socket_id, 
-        data:serializer.new(data).as_json
+        data:data.as_json
       )
     ]
   end

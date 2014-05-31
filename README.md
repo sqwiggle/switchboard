@@ -10,7 +10,7 @@ At the moment it is entirely focussed on our use case, we open sourced it becaus
 
 Add this line to your application's Gemfile:
 
-    gem 'sqwiggle-switchboard', git:git@github.com:sqwiggle/switchboard.git
+    gem 'sqwiggle-switchboard', git:'https://github.com/sqwiggle/switchboard.git', require:'switchboard'
 
 And then execute:
 

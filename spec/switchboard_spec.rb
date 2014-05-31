@@ -55,8 +55,7 @@ describe Switchboard do
     end
 
     it "raises an error if route is not present" do
-      expect{ Switchboard.trigger('unknown route', {}) }.to raise_error(Switchboard::RouteNotFoundError)
-
+      expect{ Switchboard.trigger('unknown route', {}) }.to raise_error(Switchboard::RouteNotFoundError, 'unknown route')
     end
   end
 

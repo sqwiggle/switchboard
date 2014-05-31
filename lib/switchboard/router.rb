@@ -16,7 +16,9 @@ module Switchboard
     end
 
     def self.get(key)
-      routes.select { |route| route.key == key }
+      routes.select { |route| route.key == key }.tap do |route|
+        raise RouteNotFoundError if route.empty?
+      end
     end
 
     def routes

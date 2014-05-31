@@ -1,5 +1,6 @@
 require "singleton"
 require "switchboard/version"
+require "switchboard/route_not_found_error"
 require "switchboard/router"
 require "switchboard/route"
 require "switchboard/event"

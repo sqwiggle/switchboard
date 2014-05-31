@@ -13,4 +13,5 @@ describe Switchboard::Router do
     specify { Switchboard.router.routes.first.key.should be == 'key' }
     specify { Switchboard.router.routes.first.processor.call.should be == 'hump de bump' }
   end
+
 end

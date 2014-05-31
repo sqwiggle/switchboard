@@ -53,6 +53,11 @@ describe Switchboard do
       dummy_event_3.should receive(:trigger)
       Switchboard.trigger('multi_dummy_event', {})
     end
+
+    it "raises an error if route is not present" do
+      expect{ Switchboard.trigger('unknown route', {}) }.to raise_error(Switchboard::RouteNotFoundError)
+
+    end
   end
 
 end

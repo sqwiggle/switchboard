@@ -6,10 +6,10 @@ require 'switchboard/version'
 Gem::Specification.new do |spec|
   spec.name          = "sqwiggle-switchboard"
   spec.version       = Switchboard::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.authors       = ["Luke Roberts"]
+  spec.email         = ["luke@sqwiggle.com"]
+  spec.summary       = %q{Define groups of behaviours in an abstracted location for notifying external services}
+  spec.description   = %q{Define groups of behaviours in an abstracted location for notifying external services}
   spec.homepage      = ""
   spec.license       = "MIT"
 
